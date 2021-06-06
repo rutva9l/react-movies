@@ -13,7 +13,8 @@ class Total extends Component {
         pageSize: 4,
         current: 1,
         filter: 'All genres',
-        sort: { col: 'title', order: 'asc' }
+        sort: { col: 'title', order: 'asc' },
+        search: ""
     }
 
     componentDidMount() {
@@ -32,20 +33,20 @@ class Total extends Component {
     handleSort = sort => {
         this.setState({ sort })
     }
-    handleSearch=value=>{
-        const {movies}=this.state;
-        const bruh=[];
-        movies.map(movie=>{
-            const index=movie.title.indexOf(value);
-            if (index!==-1) bruh.push(movie);
-        })
-        // // console.log(movies);
-        console.log(bruh);
+    handleSearch = value => {
+        this.setState({ search: value });
     }
 
     render() {
-        const { movies: total, pageSize, current, genres, filter, sort } = this.state;
-        const filtered = filter === 'All genres' ? total : total.filter(m => m.genre === filter);
+        const { movies: total, pageSize, current, genres, filter, sort, search } = this.state;
+        let searched = [];
+        total.map(movie => {
+            const index = movie.title.toLowerCase().indexOf(search.toLowerCase());
+            const genreIndex = movie.genre.toLowerCase().indexOf(search.toLowerCase());
+            if (index !== -1) searched.push(movie);
+            else if (genreIndex !== -1) searched.push(movie);
+        })
+        const filtered = filter === 'All genres' ? searched : searched.filter(m => m.genre === filter);
         const sorted = _.orderBy(filtered, [sort.col], [sort.order]);
         const movies = paginate(sorted, current, pageSize);
         return (
@@ -53,7 +54,7 @@ class Total extends Component {
                 <span style={{ marginBottom: 20 }}>There are {total.length} movies in the database. Currently showing {filtered.length} items. Beh</span>
                 <div style={{ display: 'flex', marginTop: 20 }}>
                     <Filter genres={genres} onSelect={this.handleSelect} selectedG={filter} />
-                    <Movies movies={movies} onClick={this.handleClick} onSort={this.handleSort} sort={sort} onSearch={this.handleSearch} />
+                    <Movies movies={movies} onClick={this.handleClick} onSort={this.handleSort} sort={sort} onSearch={this.handleSearch} onChange={this.handleSearch} />
                 </div>
                 <Pagination pageSize={pageSize} pageItems={filtered.length} onChange={this.handleChange} current={current} />
             </div>

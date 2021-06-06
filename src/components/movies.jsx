@@ -11,9 +11,6 @@ class Movies extends Component {
         }
         this.props.onSort(sort);
     }
-    handleChange=({currentTarget})=>{
-        this.props.onSearch(currentTarget.value);
-    }
 
     render() {
         return (
@@ -22,7 +19,7 @@ class Movies extends Component {
                     <button className="btn btn-primary">New Movie</button>
                 </Link>
                 <div>
-                    <input type="text" placeholder="Search..." onChange={this.handleChange} style={{width:'100%',marginTop:20,padding:5}} />
+                    <input type="text" placeholder="Search..." onChange={e=>this.props.onChange(e.currentTarget.value)} style={{width:'100%',marginTop:20,padding:5}} />
                 </div>
                 <table className="table">
                     <thead>
