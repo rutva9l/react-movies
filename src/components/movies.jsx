@@ -38,7 +38,7 @@ class Movies extends Component {
                                 <td style={{ padding: 20 }}>{movie.genre}</td>
                                 <td style={{ padding: 20 }}>{movie.rating}</td>
                                 <td style={{ padding: 20 }}>{movie.release}</td>
-                                <td style={{ padding: 20 }}><button className="btn btn-danger" onClick={() => this.props.onClick(movie.id)}>Delete</button></td>
+                                <td style={{ padding: 20 }}><button className="btn btn-danger btn-sm" style={{color: 'white'}} onClick={() => this.props.onClick(movie.id)}>Delete</button></td>
                             </tr>
                         )}
                     </tbody>

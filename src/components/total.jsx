@@ -51,7 +51,7 @@ class Total extends Component {
         const movies = paginate(sorted, current, pageSize);
         return (
             <div>
-                <span style={{ marginBottom: 20 }}>There are {total.length} movies in the database. Currently showing {filtered.length} items. Beh</span>
+                <span style={{ marginBottom: 20 }}>There are {total.length} movies in the database. Currently showing {filtered.length} items.</span>
                 <div style={{ display: 'flex', marginTop: 20 }}>
                     <Filter genres={genres} onSelect={this.handleSelect} selectedG={filter} />
                     <Movies movies={movies} onClick={this.handleClick} onSort={this.handleSort} sort={sort} onSearch={this.handleSearch} onChange={this.handleSearch} />
